@@ -7,7 +7,7 @@ function errorHandler(error: any, request: Request, response: Response, next: Ne
     response.sendStatus(400);
   }
   if(error instanceof ForbidenError) {
-    response.sendStatus(400);
+    response.sendStatus(401);
   } else {
     response.sendStatus(500);
   }
