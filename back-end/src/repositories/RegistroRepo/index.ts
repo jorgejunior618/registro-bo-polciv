@@ -1,19 +1,76 @@
 import db from "../../dataBase/db-config";
 import DbError from "../../models/Errors/DbError";
-import Registro from "../../models/Registro";
+import OrigemDenuncia from "../../models/OrigemDenuncia";
+import Registro, { RegistroDb } from "../../models/Registro";
 
 class RegistroRepository {
+  fromDbToRegistro(registro: RegistroDb): Registro {
+    const {
+      arquivo,
+      datainicioacontecimentos,
+      delegacia,
+      delegado,
+      id,
+      numerooficio,
+      orgao,
+      origemdenunciaid,
+      restricaodados,
+      aceitaarquivo,
+      aceitaoficio,
+      descricao,
+    } = registro;
+
+    const newRegistro: Registro = {
+      arquivo,
+      dataInicioAcontecimentos: datainicioacontecimentos,
+      delegacia,
+      delegado,
+      id,
+      numeroOficio: numerooficio,
+      orgao,
+      origemDenunciaId: origemdenunciaid,
+      restricaoDados: restricaodados,
+      origemDenuncia: {
+        id: origemdenunciaid,
+        descricao,
+        aceitaArquivo: aceitaarquivo,
+        aceitaOficio: aceitaoficio,
+      }
+    }
+
+    return newRegistro;
+  }
   async search(): Promise<Registro[]> {
     try {
       const query = `
-        SELECT *
-        FROM Registros_BO
+        SELECT
+          r.id,
+          arquivo,
+          dataInicioAcontecimentos,
+          delegacia,
+          delegado,
+          numeroOficio,
+          orgao,
+          origemDenunciaId,
+          restricaoDados,
+          aceitaArquivo,
+          aceitaOficio,
+          descricao
+        FROM Registros r
+        INNER JOIN OrigensDenuncia o
+        ON r.origemDenunciaId = o.id
       `;
 
-      const { rows } = await db.query<Registro>(query);
+      const { rows } = await db.query<RegistroDb>(query);
+      console.log({ rows });
 
-      return rows ?? [];
+      const registros: Registro[] = rows.map((registro) => {
+        return this.fromDbToRegistro(registro);
+      })
+
+      return registros ?? [];
     } catch (error) {
+      
       throw new DbError('Erro na consulta', error);
     }
   }
@@ -30,7 +87,7 @@ class RegistroRepository {
     try {
       const query = `
         INSERT 
-        INTO Registros_BO
+        INTO Registros
         (
           origemDenunciaId,
           numeroOficio,
@@ -41,14 +98,7 @@ class RegistroRepository {
           delegacia,
           restricaoDados
         ) values (
-          $1,
-          $2,
-          $3,
-          $4,
-          $5,
-          $6,
-          $7,
-          $8
+          $1, $2, $3, $4, $5, $6, $7, $8
         )
       `;
 
@@ -63,6 +113,8 @@ class RegistroRepository {
         restricaoDados,
       ]);
     } catch (error) {
+      console.log({ error });
+      
       throw new DbError('Erro na consulta', error);
     }
   }
