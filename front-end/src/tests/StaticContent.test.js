@@ -1,7 +1,14 @@
 import { render, screen } from '@testing-library/react';
 import MaintContent from '../components/StaticContent';
 
-test('renders the app with tabs', () => {
+const mockedUsedNavigate = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+   ...jest.requireActual('react-router-dom'),
+  useNavigate: () => mockedUsedNavigate,
+}));
+
+test('renders the static component with tabs, tabs to paginate', () => {
   render(<MaintContent />);
 
   const navigationElement = screen.getByRole("navigation");

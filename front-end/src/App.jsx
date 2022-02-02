@@ -9,6 +9,7 @@ import GlobalStyle from './styles/globalStyles';
 import { theme } from './styles/themes';
 
 import StaticContent from './components/StaticContent';
+import DefaultPage from './Pages/DefaultPage';
 
 function App() {
   return (
@@ -17,9 +18,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<StaticContent />}>
-            <Route path="" element={
-              (<h1>Registro de boletim de ocorrencia</h1>)
-            }/>
+            <Route path="" element={<DefaultPage />}/>
+            <Route path="*" element={<DefaultPage />}/>
           </Route>
         </Routes>
       </BrowserRouter>
