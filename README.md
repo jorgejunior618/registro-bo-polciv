@@ -2,13 +2,34 @@
 
 ## Estrutura do Banco de Dados
 
+  <h3>Origem de Denuncia</h3>
+
+  ```
+  TABLE OrigensDenuncia (
+    id SERIAL UNIQUE,
+    descricao VARCHAR(100) unique NOT NULL,
+    aceitaOficio BOOLEAN NOT NULL,
+    aceitaArquivo BOOLEAN NOT NULL
+)
+  ```
+
   <h3 id="registro">Registro</h3>
 
   ```
-  (
+  TABLE Registro (
     id SERIAL UNIQUE,
-    
-  )
+    origemDenunciaId INT NOT NULL,
+    numeroOficio VARCHAR(100),
+    orgao VARCHAR(100),
+    arquivo VARCHAR,
+    dataInicioAcontecimentos DATE NOT NULL,
+    delegado VARCHAR(100) NOT NULL,
+    delegacia VARCHAR(100) NOT NULL,
+    restricaoDados BOOLEAN NOT NULL,
+    CONSTRAINT fk_origem_denuncia
+      FOREIGN KEY(origemDenunciaId) 
+      REFERENCES OrigensDenuncia(id)
+)
   ```
 
 
