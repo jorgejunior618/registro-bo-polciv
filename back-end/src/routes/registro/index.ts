@@ -35,3 +35,6 @@ registroRouter.post(REGISTRO_BASE_URL, async (
     next(error);
   }
 });
+
+export default registroRouter;
+
