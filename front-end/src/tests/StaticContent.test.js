@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import MaintContent from '../Components/MainContent';
+import MaintContent from '../components/StaticContent';
 
 test('renders the app with tabs', () => {
   render(<MaintContent />);
@@ -8,5 +8,5 @@ test('renders the app with tabs', () => {
   const navChildrenLength = screen.getAllByLabelText("main-nav-item");
 
   expect(navigationElement).toBeInTheDocument();
-  expect(navChildrenLength).toHaveLength(4);
+  expect(navChildrenLength).toHaveLength(9);
 });

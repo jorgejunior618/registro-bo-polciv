@@ -8,7 +8,7 @@ import { ThemeProvider } from 'styled-components';
 import GlobalStyle from './styles/globalStyles';
 import { theme } from './styles/themes';
 
-import MainContent from './components/MainContent';
+import StaticContent from './components/StaticContent';
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
       <GlobalStyle />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<MainContent />}>
+          <Route path="/" element={<StaticContent />}>
             <Route path="" element={
               (<h1>Registro de boletim de ocorrencia</h1>)
             }/>
