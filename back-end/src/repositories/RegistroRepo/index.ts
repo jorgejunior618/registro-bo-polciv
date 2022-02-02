@@ -18,7 +18,7 @@ class RegistroRepository {
     }
   }
   async create({
-    origemDenuncia,
+    origemDenunciaId,
     numeroOficio,
     orgao,
     arquivo,
@@ -32,7 +32,7 @@ class RegistroRepository {
         INSERT 
         INTO Registros_BO
         (
-          origemDenuncia,
+          origemDenunciaId,
           numeroOficio,
           orgao,
           arquivo,
@@ -53,7 +53,7 @@ class RegistroRepository {
       `;
 
       await db.query(query, [
-        origemDenuncia,
+        origemDenunciaId,
         numeroOficio,
         orgao,
         arquivo,

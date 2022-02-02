@@ -1,5 +1,5 @@
 type Registro = {
-  origemDenuncia: number,
+  origemDenunciaId: number,
   numeroOficio: string | undefined | null,
   orgao: string | undefined | null,
   arquivo: string | undefined | null,
@@ -10,4 +10,3 @@ type Registro = {
 };
 
 export default Registro;
-
