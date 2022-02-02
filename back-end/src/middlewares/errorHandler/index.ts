@@ -5,8 +5,7 @@ import ForbidenError from "../../models/Errors/ForbidenError";
 function errorHandler(error: any, request: Request, response: Response, next: NextFunction) {
   if(error instanceof DbError) {
     response.sendStatus(400);
-  }
-  if(error instanceof ForbidenError) {
+  } else if(error instanceof ForbidenError) {
     response.sendStatus(401);
   } else {
     response.sendStatus(500);
