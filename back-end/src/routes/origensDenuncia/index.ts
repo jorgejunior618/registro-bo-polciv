@@ -13,7 +13,7 @@ origensDenunciaRouter.get(ORIGENS_BASE_URL, async (
   try {
     const origensDenuncia: OrigemDenuncia[] = await OrigemDenunciaRepo.search();
   
-    response.status(200).send({ registros: origensDenuncia });
+    response.status(200).send({ origensDenuncia });
   } catch (error) {
     next(error);
   }

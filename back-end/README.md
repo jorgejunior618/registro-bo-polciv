@@ -35,13 +35,17 @@
 
 ## Rotas da API
 
- ### Usuário
+ ### Registro de Boleetim de Ocorrência
 
   - ```GET```: "/registros" (Lista dos Registros cadastrados)
   
   - ```POST```: "/registros" (Atualização de dados do usuário)
     - Body: { email: string, name: string, password: string }
+ 
+ ### Origens de Denuncia (dados auxiliares)
 
+  - ```GET```: "/origens" (Lista dos tipos de origem de denuncia)
+  
 ## Configurar na Máquina pessoal
 
   É necessário ter o [Node](https://nodejs.org/en/) instalado na sua máquina
