@@ -6,15 +6,23 @@ import {
   MenuBookRounded,
   Face,
   Map,
+  Balance,
+  AccountTreeOutlined,
+  AssignmentOutlined,
+  Attachment,
+  EditOutlined,
+  WidgetsRounded,
 } from '@mui/icons-material';
 import TabItem from "../TabItem";
 
 function MainContent() {
   const [ url, setUrl ] = useState('/');
   const navigateTo = useNavigate();
+
   useEffect(() => {
     setUrl('/registroBO');
   }, []);
+
   useEffect(() => {
     navigateTo(url);
   }, [url, navigateTo]);
@@ -23,6 +31,13 @@ function MainContent() {
     const { name } = event.currentTarget;
     setUrl(name);
   }
+
+  function sxProperties(verificator) {
+    return {
+      fontSize: 32,
+      fill: url === verificator ? 'black' : 'white',
+    }
+  }
   
   return (
     <>
@@ -30,78 +45,41 @@ function MainContent() {
 
       <MainContentWrapper>
         <nav>
-          <button name="/registroBO" onClick={(event) => handleActivateTab(event)}>
-            <TabItem active={url === '/registroBO'}>
-              <MenuBookRounded sx={{
-                fontSize: 32,
-                fill: url === '/registroBO' ? 'black' : 'white'
-              }} />
-            </TabItem>
-          </button> 
-          <button name="/default1" onClick={(event) => handleActivateTab(event)}>
-            <TabItem active={url === '/default1'}>
-              <Face sx={{
-                fontSize: 32,
-                fill: url === '/default1' ? 'black' : 'white'
-              }} />
-            </TabItem>
-          </button> 
-          <button name="/default2" onClick={(event) => handleActivateTab(event)}>
-            <TabItem active={url === '/default2'}>
-              <Map sx={{
-                fontSize: 32,
-                fill: url === '/default2' ? 'black' : 'white'
-              }} />
-            </TabItem>
-          </button> 
-          <button name="/default3" onClick={(event) => handleActivateTab(event)}>
-            <TabItem active={url === '/default3'}>
-              <Face sx={{
-                fontSize: 32,
-                fill: url === '/default3' ? 'black' : 'white'
-              }} />
-            </TabItem>
-          </button> 
-          <button name="/default4" onClick={(event) => handleActivateTab(event)}>
-            <TabItem active={url === '/default4'}>
-              <Face sx={{
-                fontSize: 32,
-                fill: url === '/default4' ? 'black' : 'white'
-              }} />
-            </TabItem>
-          </button> 
-          <button name="/default5" onClick={(event) => handleActivateTab(event)}>
-            <TabItem active={url === '/default5'}>
-              <Face sx={{
-                fontSize: 32,
-                fill: url === '/default5' ? 'black' : 'white'
-              }} />
-            </TabItem>
-          </button> 
-          <button name="/default6" onClick={(event) => handleActivateTab(event)}>
-            <TabItem active={url === '/default6'}>
-              <Face sx={{
-                fontSize: 32,
-                fill: url === '/default6' ? 'black' : 'white'
-              }} />
-            </TabItem>
-          </button> 
-          <button name="/default7" onClick={(event) => handleActivateTab(event)}>
-            <TabItem active={url === '/default7'}>
-              <Face sx={{
-                fontSize: 32,
-                fill: url === '/default7' ? 'black' : 'white'
-              }} />
-            </TabItem>
-          </button> 
-          <button name="/default8" onClick={(event) => handleActivateTab(event)}>
-            <TabItem active={url === '/default8'}>
-              <Face sx={{
-                fontSize: 32,
-                fill: url === '/default8' ? 'black' : 'white'
-              }} />
-            </TabItem>
-          </button> 
+          <TabItem name="/registroBO" onClick={handleActivateTab} active={url === '/registroBO'}>
+            <MenuBookRounded sx={sxProperties('/registroBO')} />
+          </TabItem>
+
+          <TabItem name="/default1" onClick={handleActivateTab} active={url === '/default1'}>
+            <Face sx={sxProperties('/default1')} />
+          </TabItem>
+
+          <TabItem name="/default2" onClick={handleActivateTab} active={url === '/default2'}>
+            <Map sx={sxProperties('/default2')} />
+          </TabItem>
+
+          <TabItem name="/default3" onClick={handleActivateTab} active={url === '/default3'}>
+            <WidgetsRounded sx={sxProperties('/default3')} />
+          </TabItem>
+
+          <TabItem name="/default4" onClick={handleActivateTab} active={url === '/default4'}>
+            <Balance sx={sxProperties('/default4')} />
+          </TabItem>
+
+          <TabItem name="/default5" onClick={handleActivateTab} active={url === '/default5'}>
+            <AccountTreeOutlined sx={sxProperties('/default5')} />
+          </TabItem>
+
+          <TabItem name="/default6" onClick={handleActivateTab} active={url === '/default6'}>
+            <AssignmentOutlined sx={sxProperties('/default6')} />
+          </TabItem>
+
+          <TabItem name="/default7" onClick={handleActivateTab} active={url === '/default7'}>
+            <Attachment sx={sxProperties('/default7')} />
+          </TabItem>
+
+          <TabItem name="/default8" onClick={handleActivateTab} active={url === '/default8'}>
+            <EditOutlined sx={sxProperties('/default8')} />
+          </TabItem>
         </nav>
         <Outlet />
       </MainContentWrapper>
