@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const FormBoletim = styled.form`
+export const FormContainer = styled.main`
   padding: 10px 40px;
   width: 100%;
 

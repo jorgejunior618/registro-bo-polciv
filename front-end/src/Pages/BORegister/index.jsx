@@ -1,10 +1,12 @@
-import { FormBoletim } from "./styles";
+import { FormContainer } from "./styles";
 
 function BORegister() {
   return (
-    <FormBoletim>
-      <h1>Registro Boletim de Ocorrência</h1>
-    </FormBoletim>
+    <FormContainer>
+      <form aria-label="form" action="submit">
+        <h1>Registro Boletim de Ocorrência</h1>
+      </form>
+    </FormContainer>
   );
 }
 

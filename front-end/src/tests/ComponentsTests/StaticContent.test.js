@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import MaintContent from '../components/StaticContent';
+import MaintContent from '../../components/StaticContent';
 
 const mockedUsedNavigate = jest.fn();
 
