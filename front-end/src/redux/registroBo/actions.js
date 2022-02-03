@@ -12,10 +12,9 @@ function getOrigensList() {
   return function (dispatch) {
     registroBOService.getOrigensDenuncia()
       .then((response) => {
-        dispatch(setOrigensList(response.data.origensDenuncia));
+        dispatch(setOrigensList(response.origensDenuncia));
       })
       .catch((error) => {
-        console.log(error);
         alert('Ocorreu um erro ao carregar dados da página');
       });
   }
