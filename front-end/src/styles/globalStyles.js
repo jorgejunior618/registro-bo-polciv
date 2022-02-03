@@ -1,10 +1,17 @@
 import { createGlobalStyle } from 'styled-components'
 
+import NotoSans from '../fonts/NotoSans-Regular.ttf'
+
 const GlobalStyle = createGlobalStyle`
+  @font-face {
+    font-family: 'NotoSans';
+    src: url(${NotoSans}) format('trueType');
+  }
+
   * {
     padding: 0;
     margin: 0;
-    font-family: Verdana, Tahoma, sans-serif;
+    font-family: 'NotoSans';
     font-size: 16px;
     color: ${({ theme }) => theme.defaultFont};
     transition-duration: .4s;

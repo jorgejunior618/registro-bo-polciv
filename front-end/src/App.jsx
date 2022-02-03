@@ -9,7 +9,8 @@ import GlobalStyle from './styles/globalStyles';
 import { theme } from './styles/themes';
 
 import StaticContent from './components/StaticContent';
-import DefaultPage from './Pages/DefaultPage';
+import DefaultPage from './pages/DefaultPage';
+import BORegister from './pages/BORegister';
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<StaticContent />}>
-            <Route path="" element={<DefaultPage />}/>
+            <Route path="registroBO" element={<BORegister />}/>
             <Route path="*" element={<DefaultPage />}/>
           </Route>
         </Routes>

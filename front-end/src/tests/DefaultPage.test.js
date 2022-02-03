@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import DefaultPage from '../Pages/DefaultPage';
+import DefaultPage from '../pages/DefaultPage';
 
 test('renders the page from Routes non-registrated', () => {
   render(<DefaultPage />);

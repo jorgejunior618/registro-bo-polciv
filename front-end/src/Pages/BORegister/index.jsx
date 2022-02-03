@@ -1,6 +1,10 @@
+import { FormBoletim } from "./styles";
+
 function BORegister() {
   return (
-    <div></div>
+    <FormBoletim>
+      <h1>Registro Boletim de Ocorrência</h1>
+    </FormBoletim>
   );
 }
 
