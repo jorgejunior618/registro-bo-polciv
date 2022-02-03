@@ -62,7 +62,6 @@ class RegistroRepository {
       `;
 
       const { rows } = await db.query<RegistroDb>(query);
-      console.log({ rows });
 
       const registros: Registro[] = rows.map((registro) => {
         return this.fromDbToRegistro(registro);
@@ -113,7 +112,6 @@ class RegistroRepository {
         restricaoDados,
       ]);
     } catch (error) {
-      console.log({ error });
       
       throw new DbError('Erro na consulta', error);
     }
