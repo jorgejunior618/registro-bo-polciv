@@ -13,7 +13,25 @@ async function getRegistros() {
 }
 
 async function createRegistro(params) {
-  const { data } = await httpConfig.post(params, '/registros');
+  const formatedData = params.dataInicioAcontecimentos
+    .split('/')
+    .reverse()
+    .join('-');
+  const dataInicioAcontecimentos = 
+    `${formatedData}T${params.horaInicioAcontecimentos}`;
+  const arquivo = params.arquivoBase64;
+  
+  const body = {
+    origemDenunciaId: params.origemDenunciaId,
+    numeroOficio: params.numeroOficio,
+    orgao: params.orgao,
+    delegado: params.delegado,
+    delegacia: params.delegacia,
+    restricaoDados: params.restricaoDados,
+    dataInicioAcontecimentos,
+    arquivo,
+  }
+  const { data } = await httpConfig.post(body, '/registros');
 
   return data;
 }

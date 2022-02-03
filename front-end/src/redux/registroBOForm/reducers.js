@@ -1,17 +1,22 @@
 import * as actions from './actions';
 
 const defaultForm = {
-  origemDenunciaId: 1,
+  origemDenunciaId: null,
   numeroOficio: '',
   orgao: '',
   arquivo: '',
+  arquivoBase64: '',
   dataInicioAcontecimentos: '',
+  horaInicioAcontecimentos: '',
   delegado: '',
   delegacia: '',
   restricaoDados: false,
 }
 
-const initialState = { form: defaultForm };
+const initialState = {
+  form: defaultForm,
+  origemDenuncia: {},
+};
 
 function boFormReducer(state = initialState, action) {
   switch (action.type) {
@@ -25,6 +30,12 @@ function boFormReducer(state = initialState, action) {
       return {
         ...state,
         form: defaultForm,
+      };
+  
+    case actions.SET_ORIGEM_DENUNCIA:
+      return {
+        ...state,
+        origemDenuncia: action.payload,
       };
   
     default:
