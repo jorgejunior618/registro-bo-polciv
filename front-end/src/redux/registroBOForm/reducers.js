@@ -1,4 +1,3 @@
-import Immutable from 'seamless-immutable';
 import * as actions from './actions';
 
 const defaultForm = {
@@ -12,15 +11,21 @@ const defaultForm = {
   restricaoDados: false,
 }
 
-const initialState = () => Immutable({ form: defaultForm });
+const initialState = { form: defaultForm };
 
-function boFormReducer(state = initialState(), action) {
+function boFormReducer(state = initialState, action) {
   switch (action.type) {
     case actions.CHANGE_FORM:
-      return state.set('form', action.payload);
+      return {
+        ...state,
+        form: action.payload,
+      };
 
     case actions.CLEAN_FORM:
-      return state.set('form', defaultForm);
+      return {
+        ...state,
+        form: defaultForm,
+      };
   
     default:
       return state;
