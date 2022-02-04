@@ -35,7 +35,7 @@
 
 ## Rotas da API
 
- ### Registro de Boleetim de Ocorrência
+ ### Registro de Boletim de Ocorrência
 
   - ```GET```: "/registros" (Lista dos Registros cadastrados)
   
