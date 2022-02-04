@@ -13,6 +13,7 @@ function CustomWidthInput({
   return (
     <div style={{ width: width }}>
       <TextField
+        aria-label="customized-textfield"
         required={required}
         fullWidth={fullWidth}
         value={value}
