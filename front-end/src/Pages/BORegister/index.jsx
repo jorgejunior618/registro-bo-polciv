@@ -68,26 +68,7 @@ function BORegister() {
     [dispatch, boState]
   );
 
-  const createRegistro = useCallback(
-    (event) => {
-      event.preventDefault();
-      if (!validateForm()) return;
-      
-      dispatch(boFormActions.createRegistro(boFormState.form, handleOpenAlert))
-    },
-    [dispatch, boFormState]
-  );
-
-  const handleChangeInput = (event) => {
-    const { name, value } = event.target;
-
-    const newValue = {};
-    newValue[name] = value;
-    
-    updateForm(newValue);
-  }
-
-  const validateForm = () => {
+  const validateForm = useCallback(() => {
     const { form, origemDenuncia } = boFormState;
 
     if (!form.origemDenunciaId) {
@@ -116,6 +97,25 @@ function BORegister() {
       return false;
     }
     return true;
+  }, [boFormState]);
+
+  const createRegistro = useCallback(
+    (event) => {
+      event.preventDefault();
+      if (!validateForm()) return;
+      
+      dispatch(boFormActions.createRegistro(boFormState.form, handleOpenAlert))
+    },
+    [dispatch, boFormState, validateForm]
+  );
+
+  const handleChangeInput = (event) => {
+    const { name, value } = event.target;
+
+    const newValue = {};
+    newValue[name] = value;
+    
+    updateForm(newValue);
   }
 
   const handleCloseAlert = (reason) => {
