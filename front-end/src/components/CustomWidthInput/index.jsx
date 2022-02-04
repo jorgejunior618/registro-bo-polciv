@@ -8,6 +8,7 @@ function CustomWidthInput({
   name,
   onChange,
   placeholder,
+  InputProps,
 }) {
   return (
     <div style={{ width: width }}>
@@ -17,9 +18,9 @@ function CustomWidthInput({
         value={value}
         name={name}
         onChange={onChange}
-        className="text-input"
         placeholder={placeholder}
         variant="outlined"
+        InputProps={InputProps}
       />
     </div>
   );

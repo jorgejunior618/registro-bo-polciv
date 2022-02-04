@@ -1,16 +1,16 @@
 import axios from "axios";
 
-const BASE_URL = 'http://localhost:5000';
+const BASE_URL = 'http://localhost:';
 
 const defaultHeaders = {
   'Content-Type': 'application/json',
   'Access-Control-Allow-Origin': '*',
 };
 
-async function post(params, endpoint) {
+async function post(params, endpoint, port = '5000') {
   try {
     return await axios.post(
-      BASE_URL + endpoint,
+      BASE_URL + port + endpoint,
       params,
       {
         defaultHeaders,
@@ -21,10 +21,10 @@ async function post(params, endpoint) {
   }
 }
 
-async function put(params, endpoint) {
+async function put(params, endpoint, port = '5000') {
   try {
     return await axios.put(
-      BASE_URL + endpoint,
+      BASE_URL + port + endpoint,
       params,
       {
         defaultHeaders,
@@ -35,10 +35,10 @@ async function put(params, endpoint) {
   }
 }
 
-async function get(endpoint) {
+async function get(endpoint, port = '5000') {
   try {
     return await axios.get(
-      BASE_URL + endpoint,
+      BASE_URL + port + endpoint,
       {
         defaultHeaders,
       }
@@ -48,10 +48,10 @@ async function get(endpoint) {
   }
 }
 
-async function remove(params, endpoint) {
+async function remove(params, endpoint, port = '5000') {
   try {
     return await axios.delete(
-      BASE_URL + endpoint,
+      BASE_URL + port + endpoint,
       {
         params,
         defaultHeaders,

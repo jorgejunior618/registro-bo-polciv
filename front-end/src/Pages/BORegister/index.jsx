@@ -11,12 +11,18 @@ import {
   Button,
   Alert,
   Snackbar,
+  Slide,
+  Autocomplete,
+  TextField,
+  Checkbox,
 } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
 
 import { FormContainer, InputContainer, InputGroup } from "./styles";
 import CustomWidthInput from '../../components/CustomWidthInput';
 import { fileToBase64 } from '../../utils/file.util';
 import InputMask from '../../components/InputMask';
+import tableValues from './static';
 
 function BORegister() {
   const {
@@ -24,11 +30,20 @@ function BORegister() {
     registroBOForm: boFormState
   } = useSelector((state) => state);
   const dispatch = useDispatch();
-  const [ showAlert, setShowAlert ]= useState();
+  const [ showAlert, setShowAlert ]= useState(false);
+  const [ successAlert, setSuccessAlert ]= useState(false);
+  const [ messageAlert, setMessageAlert ]= useState('');
 
   const getOrigensDenuncia = useCallback(
     () => {
-      dispatch(registroActions.getOrigensList());
+      dispatch(registroActions.getOrigensList(handleOpenAlert));
+    },
+    [dispatch]
+  );
+
+  const getNomes = useCallback(
+    () => {
+      dispatch(registroActions.getNomesList(handleOpenAlert));
     },
     [dispatch]
   );
@@ -56,8 +71,9 @@ function BORegister() {
   const createRegistro = useCallback(
     (event) => {
       event.preventDefault();
-      dispatch(boFormActions.createRegistro(boFormState.form, handleOpen))
+      if (!validateForm()) return;
       
+      dispatch(boFormActions.createRegistro(boFormState.form, handleOpenAlert))
     },
     [dispatch, boFormState]
   );
@@ -71,39 +87,97 @@ function BORegister() {
     updateForm(newValue);
   }
 
-  const handleClose = () => {
-    setShowAlert(false);
+  const validateForm = () => {
+    const { form, origemDenuncia } = boFormState;
+
+    if (!form.origemDenunciaId) {
+      handleOpenAlert(false, 'Preencha a "Origem da Denúncia"');
+      return false;
+    }
+    if (origemDenuncia.aceitaoficio) {
+      if (!form.numeroOficio || !form.orgao) {
+        handleOpenAlert(false, 'Preencha os campos referentes ao Ofício');
+        return false;
+      }
+    }
+    if (origemDenuncia.aceitaarquivo) {
+      if (!form.arquivo) {
+        handleOpenAlert(false, 'Selecione um Arquivo');
+        return false;
+      }
+    }
+    if (
+      !form.dataInicioAcontecimentos ||
+      !form.horaInicioAcontecimentos ||
+      !form.delegado ||
+      !form.delegacia
+    ) {
+      handleOpenAlert(false, 'Preencha todos os campos do formulário');
+      return false;
+    }
+    return true;
   }
-  const handleOpen = () => {
+
+  const handleCloseAlert = (reason) => {
+    if (reason !== 'clickaway') setShowAlert(false);
+  }
+  const handleOpenAlert = (success = true, message = 'Sucesso') => {
+    setSuccessAlert(success);
+    setMessageAlert(message);
     setShowAlert(true);
+  }
+
+  function TransitionDown(props) {
+    return <Slide {...props} direction="down" />;
   }
 
   useEffect(() => {
     getOrigensDenuncia();
-    handleOpen();
-  }, [getOrigensDenuncia]);
+    getNomes();
+  }, [getOrigensDenuncia, getNomes]);
+
+  const tableColumns = [
+    { field: 'matricula', headerName: 'Matrícula', width: 225 },
+    { field: 'autorizado', headerName: 'Autorizado', width: 425 },
+    { field: 'cargo', headerName: 'Cargo', width: 200 },
+    { field: 'validade', headerName: 'Validade', width: 280 },
+  ];
+  
 
   return (
     <FormContainer>
       <Snackbar
         open={showAlert}
-        autoHideDuration={6000}
-        onClose={handleClose}
+        autoHideDuration={5000}
+        onClose={(event, reason) => handleCloseAlert(reason)}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        TransitionComponent={TransitionDown}
       >
-        <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-          CARALHO
+        <Alert 
+          onClose={handleCloseAlert} 
+          variant="filled"
+          severity={successAlert ? "success" : "error" }
+          sx={{ width: '100%'}}
+          
+        >
+          {messageAlert}
         </Alert>
       </Snackbar>
 
-      <form aria-label="form" action="submit" onSubmit={createRegistro}>
+      <form
+        aria-label="form"
+        action="submit"
+        onSubmit={createRegistro}
+      >
         <h1>Registro Boletim de Ocorrência</h1>
 
-        <InputContainer aria-label='origem-denuncia'>
+        <InputContainer className='radio-buttons' aria-label='origem-denuncia'>
           <FormLabel className="label-input">
             Origem da Denúncia: 
           </FormLabel>
           <RadioGroup
             row
+            aria-required
             value={boFormState.form.origemDenunciaId}
             onChange={(event, value) => {
               updateForm({origemDenunciaId: Number(value)});
@@ -161,21 +235,32 @@ function BORegister() {
         {boFormState.origemDenuncia.aceitaarquivo ?
           (
             <InputContainer aria-label='arquivo'>
-              <input
-                accept=".pdf, .doc, .docx"
-                value={boFormState.form.arquivo}
-                onChange={async (event) => {
-                  const arquivoBase64 = await fileToBase64(event.target.files[0]);
+              <label htmlFor="contained-button-file">
+                <input
+                  accept=".pdf, .doc, .docx"
+                  style={{ display: 'none' }}
+                  onChange={async (event) => {
+                    const arquivoBase64 = await fileToBase64(event.target.files[0]);
 
-                  updateForm({
-                    arquivo: event.target.value,
-                    arquivoBase64: arquivoBase64.split(',')[1],
-                  });
-                }}
-                id="contained-button-file"
-                multiple={false}
-                type="file"
-              />   
+                    const { value } = event.target;
+                    const values = value.split('\\');
+
+                    updateForm({
+                      arquivo: values[values.length-1],
+                      arquivoBase64: arquivoBase64.split(',')[1],
+                    });
+                  }}
+                  id="contained-button-file"
+                  multiple={false}
+                  type="file"
+                />
+                <Button style={{ marginRight: '10px'}} variant="contained" component="span">
+                  {boFormState.form.arquivo ? 'Alterar ' : 'Adicionar '}arquivo
+                </Button>
+                <FormLabel className="label-input">
+                  {boFormState.form.arquivo ? boFormState.form.arquivo+' ' : 'Nehum arquivo '}selecionado
+                </FormLabel>
+              </label>
             </InputContainer>
           ) :
           <></>
@@ -189,6 +274,7 @@ function BORegister() {
 
             <div style={{ width: '120px', marginRight: '20px'}}>
               <InputMask
+                required
                 aria-label="dataInicioAcontecimentos"
                 value={boFormState.form.dataInicioAcontecimentos}
                 name="dataInicioAcontecimentos"
@@ -200,6 +286,7 @@ function BORegister() {
             </div>
             <div style={{ width: '100px'}}>
               <InputMask
+                required
                 aria-label="horaInicioAcontecimentos"
                 value={boFormState.form.horaInicioAcontecimentos}
                 name="horaInicioAcontecimentos"
@@ -217,15 +304,36 @@ function BORegister() {
             Delegado Responsavel: 
           </FormLabel>
 
-          <CustomWidthInput
-            width='300px'
-            required
+          <div style={{ width: '250px'}}>
+          <Autocomplete
+            freeSolo
             fullWidth
+            disableClearable
+            required
             value={boFormState.form.delegado}
             name="delegado"
-            onChange={(event) => handleChangeInput(event)}
-            placeholder="Digite pelo menos 3 letras"
-            />
+            onChange={(event, value) => {
+              updateForm({
+                delegado: value,
+              })
+            }}
+            options={boState.nomesList}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                required
+                placeholder="Digite pelo menos 3 letras"
+                InputProps={{
+                  ...params.InputProps,
+                  type: 'search',
+                  style: {
+                    padding: '0 6px'
+                  }
+                }}
+                />
+                )}
+              />
+            </div>
         </InputContainer>
           
         <InputContainer aria-label='Delegacia-Procedimento'>
@@ -244,8 +352,36 @@ function BORegister() {
           />
         </InputContainer>
 
-        <Button type='submit' variant="contained">Registrar</Button>
+        <Button id="register-button" type='submit' variant="contained">Registrar</Button>
+
+        <InputContainer aria-label='Restricao-Dados'>
+          <FormControlLabel
+            control={
+              <Checkbox
+                name='restricaoDados'
+                checked={boFormState.form.restricaoDados}
+                onChange={(event, checked) => {
+                  updateForm({
+                    restricaoDados: checked,
+                  })
+                }}
+              />
+            }
+            label="Definir restrição de acesso"
+          />
+        </InputContainer>
       </form>
+      <DataGrid
+      style={{ width: '80%', minWidth: 1150, margin: '0' }}
+        rows={tableValues}
+        columns={tableColumns}
+        pageSize={3}
+        rowsPerPageOptions={[3]}
+        autoHeight
+        disableSelectionOnClick
+        disableColumnSelector
+        hideFooter
+      />
     </FormContainer>
   );
 }

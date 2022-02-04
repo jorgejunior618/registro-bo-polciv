@@ -4,7 +4,7 @@ const defaultForm = {
   origemDenunciaId: null,
   numeroOficio: '',
   orgao: '',
-  arquivo: '',
+  arquivo: undefined,
   arquivoBase64: '',
   dataInicioAcontecimentos: '',
   horaInicioAcontecimentos: '',
@@ -30,6 +30,7 @@ function boFormReducer(state = initialState, action) {
       return {
         ...state,
         form: defaultForm,
+        origemDenuncia: {},
       };
   
     case actions.SET_ORIGEM_DENUNCIA:

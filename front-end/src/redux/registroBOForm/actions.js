@@ -24,13 +24,22 @@ function setOrigemDenuncia(origemDenuncia) {
   };
 }
 
-function createRegistro(form, callBack) {
+function createRegistro(form, alertCallBack) {
   return function (dispatch) {
     return service.createRegistro(form)
       .then(() => {
         dispatch(cleanForm());
+        
+        if(alertCallBack && typeof alertCallBack === 'function') {
+          alertCallBack(true, 'Boletim de Ocorrência registrado com sucesso');
+        }
       })
-      .catch((error) => alert("Erro ao salvar registro"));
+      .catch((error) => {
+        
+        if(alertCallBack && typeof alertCallBack === 'function') {
+          alertCallBack(false, 'Erro ao registrar boletim');
+        }
+      });
   }
 }
 

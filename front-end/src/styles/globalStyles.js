@@ -12,15 +12,14 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
     font-family: 'NotoSans';
-    font-size: 16px;
-    color: ${({ theme }) => theme.defaultFont};
-    transition-duration: .4s;
+    font-size: 13px;
+    transition-duration: .3s;
     box-sizing: border-box;
     list-style: none;
   }
   a, h1, h2, h3, p, strong, span {
     text-decoration: none;
-    color: ${({ theme }) => theme.defaultFont};
+    color: currentColor;
   }
   h1 {
     font-size: 2rem;

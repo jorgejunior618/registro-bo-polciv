@@ -9,8 +9,8 @@ export const FormContainer = styled.main`
     margin-bottom: 15px;
   }
 
-  button {
-    margin-top: 50px;
+  #register-button {
+    margin-top: 30px;
   }
 `;
 
@@ -18,20 +18,20 @@ export const InputContainer = styled.section`
   display: flex;
   align-items: flex-end;
   margin-top: 15px;
+
+  &.radio-buttons {
+    align-items: center;
+  }
   
-  & .label-input {
+  .label-input {
     font-weight: 600;
     margin-right: 10px;
   }
 
-  & .MuiOutlinedInput-input {
-    padding: 12px 12px 4px;
-
+  .MuiOutlinedInput-input {
+    padding: 6px 10px 2px;
   }
-  & #50pixels{
-    width: 50px;
-  }
-  `;
+`;
 
 export const InputGroup = styled.section`
   display: flex;

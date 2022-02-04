@@ -2,6 +2,7 @@ import * as actions from './actions';
 
 const initialState = {
   origensList: [],
+  nomesList: [],
 };
 
 function registroBOReducer(state = initialState, action) {
@@ -10,6 +11,12 @@ function registroBOReducer(state = initialState, action) {
       return {
         ...state,
         origensList: action.payload,
+      };
+  
+    case actions.SET_NOMES_LIST:
+      return {
+        ...state,
+        nomesList: action.payload,
       };
   
     default:

@@ -6,6 +6,12 @@ async function getOrigensDenuncia() {
   return data;
 }
 
+async function getNomes() {
+  const { data } = await httpConfig.get('/nomes', '3004');
+
+  return data;
+}
+
 async function getRegistros() {
   const { data } = await httpConfig.get('/registros');
 
@@ -39,6 +45,7 @@ async function createRegistro(params) {
 const registroBOService = {
   getOrigensDenuncia,
   getRegistros,
+  getNomes,
   createRegistro,
 }
 
