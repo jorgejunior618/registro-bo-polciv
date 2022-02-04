@@ -1,4 +1,4 @@
-import db from "../../dataBase/db-config";
+import db from "../../dataBase/db";
 import DbError from "../../models/Errors/DbError";
 import OrigemDenuncia from "../../models/OrigemDenuncia";
 
