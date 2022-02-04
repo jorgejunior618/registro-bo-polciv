@@ -1,70 +1,30 @@
-# Getting Started with Create React App
+# Frontend SPA (Single Page Application)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Rotas da API
 
-## Available Scripts
+  - `"/"`: Landing Page que redireciona para a Tela de Registro de Boletim de Ocorrência
+  
+  - `"/registroBO"`: Tela com formulário para registrar um Boletim de Ocorrência
 
-In the project directory, you can run:
+  - `"/*"` (qualquer outra rota): Tela padrão para rotas não definidas
+ 
+## Funcionalidades principais
 
-### `yarn start`
+  - Utilização de componentes estáticos para compor Cabeçalho e barra de navegação lateral, evitandocarregamento desnecessários
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  - Utilização do padrão Funcional (sem uso de classes) e uso de reactHooks
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+  - Gerênciamento de estados da aplicação e padrão Flux utilizando Redux
 
-### `yarn test`
+  - Uso de componentes da biblioteca [mui (material-ui para React)](https://mui.com/pt/)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+  - Uso de Testes Unitários no desenvolvimento utilizando a Biblioteca [testing-library/react](https://testing-library.com/).
 
-### `yarn build`
+## Configurar na Máquina pessoal
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  É necessário ter o [Node](https://nodejs.org/en/) instalado na sua máquina
+  Abrir console no diretório de sua preferência e digitar o comando `git clone https://github.com/jorgejunior618/registro-bo-polciv` para clonar o repositório
+  Ao finalizar o Download, utilizar o comando `yarn` na pasta `front-end` para instalar todas as dependências.
+  Para realizar os teste unitários configurados, basta utilizar o comando `yarn run test`, e aguardar os resultados.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  Utilizar o comando `yarn start` para inicializar o projeto em modo de desenvolvimento, ou `yarn run build` para gerar o arquivo em modo de produção.
